@@ -1,0 +1,36 @@
+<img *ngIf="!movies" src="./../../../assets/images/Spinner-3.gif" />
+<div *ngIf="movies?.length===0">
+	There is no records to display
+</div>
+<ng-container *ngIf="movies && movies.length > 0">
+	<div class="movies-container">
+		<div *ngFor="let movie of movies; let index=index" class="movie-container">
+			<a>
+				<img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}">
+			</a>
+			<p>
+				<a>
+					{{movie.title}}
+				</a>
+			</p>
+			<div>
+				<a mat-flat-button color="primary">
+					Edit
+				</a>
+				<button mat-flat-button color="warn" type="button">
+					Delete
+				</button>
+			</div>
+			<!-- <div>
+			{{index}}) {{movie.name | uppercase}}
+			<button style="margin-left:1rem;" (click)="remove(index)">Remove </button>
+		</div>
+		<div>
+			{{movie.releaseData | date:"dd-MMMM-yyyy" | uppercase}}
+		</div>
+		<div>
+			{{movie.price | currency:"GBP"}}
+		</div> -->
+		</div>
+	</div>
+</ng-container>
