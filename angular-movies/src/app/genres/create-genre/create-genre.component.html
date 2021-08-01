@@ -1,1 +1,11 @@
-<p>create-genre works!</p>
+<h2>Create Genre</h2>
+<form (submit)="saveChanges()" [formGroup]="form">
+	<mat-form-field appearance="outline">
+		<mat-label>Name*</mat-label>
+		<input formControlName="name" matInput />
+	</mat-form-field>
+	<div>
+		<button mat-flat-button color="primary">Save Chnages</button>
+		<a mat-stroked-button routerLink="/genres">Cancel</a>
+	</div>
+</form>
