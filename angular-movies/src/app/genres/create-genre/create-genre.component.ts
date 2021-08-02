@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirstLetterUpperCaaseValidator } from 'src/app/validators/FirstLetterUpperCaaseValidator';
+
 
 @Component({
 	selector: 'app-create-genre',
@@ -14,11 +16,33 @@ export class CreateGenreComponent implements OnInit {
 	form!: FormGroup;
 
 	ngOnInit(): void {
-		this.form = this.formBuilder.group({ name: 'Drama' });
+		this.form = this.formBuilder.group({
+			name: ['', {
+				validators: [
+					Validators.required,
+					Validators.minLength(3),
+					FirstLetterUpperCaaseValidator
+				]
+			}]
+		});
 	}
 
 	saveChanges() {
 		this.router.navigate(['/genres']);
+	}
+
+	getErrorMessageFieldName() {
+		const field = this.form.get('name');
+		if (field?.hasError('required')) {
+			return 'The name field is required';
+		}
+		if (field?.hasError('minlength')) {
+			return 'The minimum length is 3';
+		}
+		if (field?.hasError('FirstLetterUpperCaaseValidator')) {
+			return field.getError('FirstLetterUpperCaaseValidator').message;
+		}
+		return '';
 	}
 
 }
